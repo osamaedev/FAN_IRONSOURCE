@@ -84,19 +84,12 @@ public class MainActivity extends AppCompatActivity {
         IronSource.setInterstitialListener(new InterstitialListener() {
             @Override
             public void onInterstitialAdReady() {
-                if (IronSource.isInterstitialPlacementCapped("Hna smit inter f dashboard") && IronSource.isInterstitialReady()) {
-                    IronSource.showInterstitial("Hna smint inter");
-                }
-
-                // Ola t9dar dir hadi bla smit inter nichan lik can m loadi iban
-//                if (IronSource.isInterstitialReady()) {
-//                    IronSource.showInterstitial();
-//                }
+                //
             }
 
             @Override
             public void onInterstitialAdLoadFailed(IronSourceError ironSourceError) {
-
+                Log.d("TAG", "onInterstitialAdLoadFailed: Inter failed to load");
             }
 
             @Override
@@ -106,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onInterstitialAdClosed() {
-
+                Intent intent = new Intent(MainActivity.this, Page_1.class);
+                startActivity(intent);
             }
 
             @Override
@@ -129,9 +123,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Intent intent = new Intent(MainActivity.this, Page_1.class);
-        startActivity(intent);
-        IronSource.showInterstitial("DefaultInterstitial");
+        if (IronSource.isInterstitialPlacementCapped("DefaultInterstitial") && IronSource.isInterstitialReady()) {
+            IronSource.showInterstitial("DefaultInterstitial");
+        } else {
+            Intent intent = new Intent(MainActivity.this, Page_1.class);
+            startActivity(intent);
+        }
+
+        // Ola t9dar dir hadi bla smit inter nichan lik can m loadi iban
+//        if (IronSource.isInterstitialReady()) {
+//            IronSource.showInterstitial();
+//        }
     }
 
 
